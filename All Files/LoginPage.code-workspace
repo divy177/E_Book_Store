@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../../Users/HP/Downloads/gym"
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "gym"
+	}
+}

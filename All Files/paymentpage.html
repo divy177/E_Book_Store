@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Page</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f9f9f9;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+        h1 {
+            color: #dc143c;
+            margin-top: 30px;
+            font-size: 48px;
+        }
+        
+        #totalAmountDisplay {
+            font-size: 36px;
+            font-weight: bold;
+            color: #333;
+            margin-top: 20px;
+        }
+        
+        #timer {
+            font-size: 24px;
+            color: #666;
+            margin-top: 10px;
+        }
+        
+        img {
+            margin-top: 50px;
+            max-width: 50%;
+            height: auto;
+            display: block;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        p {
+            font-size: 30px;
+            color: #555;
+        }
+        
+        button {
+            font-size: 20px;
+            margin-top: 30px;
+            padding: 15px 30px;
+            border: none;
+            background-color: #dc143c;
+            color: white;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+        
+        button:hover {
+            background-color: #aa0e2a;
+        }
+        
+        #retryButton {
+            display: none;
+        }
+        img
+        {
+            width:500px;
+            height:auto;
+        }
+    </style>
+</head>
+<body>
+    <img src="newwhite.png">
+    <h1>Thanks for shopping with us!</h1>
+    <p>Total Amount: <span id="totalAmountDisplay"></span></p>
+    <img id="paymentImage" src="qr.png" alt="Payment Image">
+    <p id="timer">Complete payment in <span id="countdown">5</span> seconds...</p>
+    <button id="retryButton" onclick="retryPayment()">Retry</button>
+
+    <script>
+        let totalAmount = sessionStorage.getItem('totalAmount') || sessionStorage.getItem('totalAmount');
+        totalAmount = totalAmount ? parseFloat(totalAmount) : 0;
+        const totalAmountDisplay = document.getElementById('totalAmountDisplay');
+        totalAmountDisplay.textContent = `$${totalAmount}`;
+        // sessionStorage.removeItem('totalAmount');
+
+        let countdown = 15; 
+        const countdownDisplay = document.getElementById('countdown');
+        const countdownInterval = setInterval(() => {
+            countdown--;
+            countdownDisplay.textContent = countdown;
+            if (countdown <= 0) {
+                clearInterval(countdownInterval);
+                
+                document.getElementById('timer').textContent = 'Timeout';
+                
+                document.getElementById('paymentImage').style.display = 'none';
+                
+                document.getElementById('retryButton').style.display = 'block';
+            }
+        }, 1000);
+
+        
+        function retryPayment() {
+           
+            document.getElementById('paymentImage').style.display = 'block';
+            
+            document.getElementById('retryButton').style.display = 'none';
+            
+            location.reload();
+        }
+    </script>
+</body>
+</html>
